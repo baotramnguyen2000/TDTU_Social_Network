@@ -1,0 +1,13 @@
+<% if (typeof errors != 'undefined') { %>
+    <% errors.forEach(function(error) { %>
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+         <strong>ERRORS:</strong> <%= error.msg %>
+       </div>
+    <% }) %>
+<% } %>
+
+<% if (typeof success != 'undefined') { %>
+     <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Account Created: </strong>Check database for more infomation
+      </div>
+<% } %>

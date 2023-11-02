@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALL NOTIFICATION</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheet/style.css">
+    <link rel="icon" type="image/png" href="https://cdn-icons.flaticon.com/png/512/2940/premium/2940652.png?token=exp=1637886285~hmac=d3260b27ee885bc3229a8285ec5844d5">
+   
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js" integrity="sha512-efUTj3HdSPwWJ9gjfGR71X9cvsrthIA78/Fvd/IN+fttQVy7XWkOAXb295j8B3cmm/kFKVxjiNYzKw9IQJHIuQ==" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tinymce/tinymce-webcomponent@1/dist/tinymce-webcomponent.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.7/js/responsive.bootstrap4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdn.tiny.cloud/1/k2if69jyfthaxzysrdd1zxqbdtpbn0g06h2ybhj53q6kyykh/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script> -->
+    
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light  fixed-top ">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          
+          <li class="nav-item">
+            <a class="nav-link active aborder" aria-current="page" href="/dashboard">STUDENT PORTAL</a>
+          </li>
+
+          <li class="nav-item dropdown active">
+            <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-expanded="false">
+              <span class="mr-3 p-2" style="outline:none; border-radius: 10px; background-color: white;"><%= user.name %></span>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit" ><i class="fas fa-user-edit"></i> Thông tin cá nhân</a></li>
+              <div class="dropdown-divider"></div>
+              <li><a class="dropdown-item" href="/login/logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất </a></li>
+              <% if (user.role == 'admin') {%> 
+                <div class="dropdown-divider"></div>
+                <li><a class="dropdown-item" href="/login/register">Tạo tài khoản mới</a></li>
+              <% } %> 
+            </ul>
+          </li>
+          <% if(user.role == 'student') { %> 
+          <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-large bg-white">
+            <span aria-hidden="true"> <i class="fas fa-pen-square"></i> Đăng bài</span>
+          </button>
+          <% } else { %> 
+          <button type="button" data-toggle="modal" data-target="#khoa" class="btn btn-large" >
+            <span aria-hidden="true"> <i class="fas fa-plus fa-sm"></i> Đăng thông báo</span>
+          </button>
+          <% } %> 
+
+        </ul>
+      </div>
+</nav>
+
+<!-- banner -->
+<section class="hero-area bg mb-5" id="parallax">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-11 mx-auto">
+        <h1 class="text-white font-tertiary"><strong>STUDENT<br>PORTAL<br><br><i>"Mạng xã hội kết nối sinh viên khoa CNTT"</i></strong></h1>
+      </div>
+    </div>
+  </div>
+  <div class="layer-bg w-100">
+    <img class="img-fluid w-100" src="/images/leaf-bg.png" alt="leaf-bg.png">
+  </div>
+  <div class="layer" id="l2">
+    <img src="/images/dots-cyan.png" alt="dots-cyan.png">
+  </div>
+  <div class="layer" id="l3">
+    <img src="/images/leaf-orange.png" alt="leaf-orange.png">
+  </div>
+  <div class="layer" id="l4">
+    <img src="/images/dots-orange.png" alt="dots-orange.png">
+  </div>
+  <div class="layer" id="l5">
+    <img src="/images/leaf-yellow.png" alt="leaf-yellow.png">
+  </div>
+  <div class="layer" id="l6">
+    <img src="/images/leaf-cyan.png" alt="leaf-cyan.png">
+  </div>
+  <div class="layer" id="l7">
+    <img src="/images/dots-group-orange.png"alt="dots-group-orange.png">
+  </div>
+  <div class="layer" id="l8">
+    <img src="/images/leaf-pink-round.png" alt="leaf-pink-round.png">
+  </div>
+  <div class="layer" id="l9">
+    <img src="/images/leaf-cyan-2.png" alt="leaf-cyan-2.png">
+  </div>
+</section>
+
+
+<!-- Edit Modal -->
+<div class="modal fade bd-example-modal-lg" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Cập nhật thông tin</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Tên hiển thị:</label>
+              <input type="text" class="form-control" value="<%= user.name %> " id="name">
+            </div>
+
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Lớp:</label>
+              <input type="text" class="form-control" value="<%= user.class %> " id="class">
+            </div>
+
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Khoa:</label>
+              <input type="text" class="form-control" value="<%= user.falcuty %> " id="falcuty">
+            </div>
+
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Ảnh đại diện:</label>
+              <input type="text" class="form-control" value="<%= user.avatar %> " id="avatar">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="updateAccount" data-id="<%= user._id %>" data-dismiss="modal" class="btn btn-primary">Lưu</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+        </div>
+    </div>
+  </div>
+</div>
+<!-- End Edit Modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" style="text-align: center; font-weight: bold; font-size: 30px;">Tạo bài viết</h5>
+      </div>
+      <div class="modal-body">
+          <form>
+            <tinymce-editor
+            placeholder="Đăng bài viết tại đây...?"
+            name="postcontent" 
+            id="postcontent"
+            api-key="k2if69jyfthaxzysrdd1zxqbdtpbn0g06h2ybhj53q6kyykh"                                 
+            plugins="advlist autolink lists link image charmap print preview anchor
+            searchreplace visualblocks code fullscreen
+            insertdatetime media table paste code help wordcount"
+            toolbar="undo redo | formatselect | bold italic backcolor |
+            alignleft aligncenter alignright alignjustify |
+            bullist numlist outdent indent | removeformat | help"
+            content_style="body
+            {
+              font-family:Helvetica,Arial,sans-serif;
+              font-size:14px
+            }"
+            >
+          
+          </tinymce-editor>
+              <!-- <textarea name="postcontent" id="postcontent" style="border-radius: initial;border: none;outline: none;" class="form-control input-lg p-text-area tiny" rows="2" placeholder="Whats in your mind today?" required></textarea> -->
+              <div class="modal-footer">
+                <button type="button" id="postdashboard" data-dismiss="modal" class="btn btn-primary">Đăng bài viết</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+              </div>
+          </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+  
+<!-- Khoa Modal -->
+<div class="modal fade bd-example-modal-lg" id="khoa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Chọn phòng khoa</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Tiêu đề:</label>
+              <input name="title" id="NotifTitle" type="text" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Nội dung:</label>
+              <input id="NotifContent" name="content" type="text" class="form-control" required>
+            </div>
+
+           
+            <div class="form-group">
+              <h5>Danh sách khoa:</h5>
+              <select id="falcuty" name="falcuty" class="form-control" required>
+                <% if(user.falcuty.includes('KHOA HỌC THỂ THAO')) { %> 
+                <option value="KHOA HỌC THỂ THAO">Khoa học thể thao</option>
+                <% } %>
+                <% if(user.falcuty.includes('KHOA HỌC ỨNG DỤNG')) { %> 
+                  <option value="KHOA HỌC ỨNG DỤNG">Khoa học ứng dụng</option>
+                <% } %>
+                <% if(user.falcuty.includes('KHOA HỌC XÃ HỘI VÀ NHÂN VĂN')) { %> 
+                  <option value="KHOA HỌC XÃ HỘI VÀ NHÂN VĂN">Khoa học xã hội & nhân văn</option>
+                <% } %>
+                <% if(user.falcuty.includes('CÔNG NGHỆ THÔNG TIN')) { %> 
+                  <option value="CÔNG NGHỆ THÔNG TIN">Công nghệ thông tin</option>
+                <% } %>
+                <% if(user.falcuty.includes('ĐIỆN - ĐIỆN TỬ')) { %> 
+                  <option value="ĐIỆN - ĐIỆN TỬ">Điện - Điện tử</option>
+                <% } %>
+                <% if(user.falcuty.includes('TOÁN - THỐNG KÊ')) { %> 
+                  <option value="TOÁN - THỐNG KÊ">Toán - Thống kê</option>
+                <% } %>
+                <% if(user.falcuty.includes('MỸ THUẬT CÔNG NGHIỆP')) { %> 
+                  <option value="MỸ THUẬT CÔNG NGHIỆP">Mỹ thuật công nghiệp</option>
+                <% } %>
+                <% if(user.falcuty.includes('KỸ THUẬT CÔNG TRÌNH')) { %> 
+                  <option value="KỸ THUẬT CÔNG TRÌNH">Kỹ thuật công trình</option>
+                <% } %>
+                <% if(user.falcuty.includes('DƯỢC')) { %> 
+                  <option value="DƯỢC">Dược</option>
+                <% } %>
+                <% if(user.falcuty.includes('LUẬT')) { %> 
+                  <option value="LUẬT">Luật</option>
+                <% } %>
+                <% if(user.falcuty.includes('NGOẠI NGỮ')) { %> 
+                  <option value="NGOẠI NGỮ">Ngoại ngữ</option>
+                <% } %>
+                <% if(user.falcuty.includes('QUẢN TRỊ KINH DOANH')) { %> 
+                  <option value="QUẢN TRỊ KINH DOANH">Quản trị kinh doanh</option>
+                <% } %>
+                <% if(user.falcuty.includes('KẾ TOÁN')) { %> 
+                  <option value="KẾ TOÁN">Kế toán</option>
+                <% } %>
+                <% if(user.falcuty.includes('TÀI CHÍNH NGÂN HÀNG')) { %> 
+                  <option value="TÀI CHÍNH NGÂN HÀNG">Tài chính ngân hàng</option>
+                <% } %>
+                <% if(user.falcuty.includes('MÔI TRƯỜNG VÀ BẢO HỘ LAO ĐỘNG')) { %> 
+                  <option value="MÔI TRƯỜNG VÀ BẢO HỘ LAO ĐỘNG">Môi trường và bảo hộ lao động</option>
+                <% } %>
+                <% if(user.falcuty.includes('LAO ĐỘNG VÀ CÔNG ĐOÀN')) { %> 
+                  <option value="LAO ĐỘNG VÀ CÔNG ĐOÀN">Lao động và công đoàn</option>
+                <% } %>
+                <% if(user.falcuty.includes('PHÒNG CTHSSV')) { %> 
+                  <option value="PHÒNG CTHSSV">Phòng CTHSSV</option>
+                <% } %>
+                <% if(user.falcuty.includes('PHÒNG TÀI CHÍNH')) { %> 
+                  <option value="PHÒNG TÀI CHÍNH">Phòng Tài Chính</option>
+                <% } %>
+                <% if(user.falcuty.includes('PHÒNG ĐẠI HỌC')) { %> 
+                  <option value="PHÒNG ĐẠI HỌC">Phòng Đại Học</option>
+                <% } %>
+              </select>
+            </div>
+            <div class="modal-footer">
+              <button type="button" data-dismiss="modal" id="sendNotif" onclick="sendMessage()" class="btn btn-primary">Lưu</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+            </div>
+          </form>
+        </div>
+    </div>
+  </div>
+</div>
+<!-- End Khoa Modal -->
+
+<div class="container-fluid ">
+    
+    <table id="table-list" class="table">
+        <thead class="bg-primary text-white">
+            <tr>
+                <th class="text-center whitetext bg">TẤT CẢ THÔNG BÁO</th>
+            </tr>
+        </thead>
+        <tbody>
+          <% if (notifs) { notifs = notifs.reverse(); notifs.forEach((notif, index) => { %>
+            <tr>
+              <td>
+                <div class="card mt-3 shadow p-3 mb-5 bg-white rounded">
+                  <div class="card-body">
+                    <p class="card-text">
+                      <img class="rounded" id="userImg" src="data:image/png;base64,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" width="40">
+                      <small class="text-muted"><%= notif.falcuty %></small>
+                    </p>
+                    <h6 class="card-title" ><a href="/dashboard/notifications/<%= notif._id %>" target="_blank" rel="noopener noreferrer"><%= notif.title %></a></h6>
+                    <p class="card-text " ><%= notif.content %></p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <% })} %> 
+        </tbody>
+       
+    </table>
+</div>
+
+
+<script src="/javascripts/main.js"></script> 
+</body>
+</html>

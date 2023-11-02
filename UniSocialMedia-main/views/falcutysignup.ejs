@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>CREATE ACCOUNT</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+    <link rel="stylesheet" href="/stylesheet/style.css">
+    <link rel="icon" type="image/png" href="https://cdn-icons.flaticon.com/png/512/2940/premium/2940652.png?token=exp=1637886285~hmac=d3260b27ee885bc3229a8285ec5844d5">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="/javascripts/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+  </head>
+
+  <body class="bodybackground">
+    
+    <div class="container">
+
+      <div class="justify-content-center">
+
+          <div class="card m-5 shadow p-3 mb-3 bg-white rounded">
+            
+            <header class="card-header bg-white">
+                <h4 class="card-title mt-2 text-center">
+                  <img class="rounded" id="userImg" src="data:image/png;base64,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" width="70">
+                  CREATE AN ACCOUNT
+                </h4>
+            </header>
+
+            <article class="card-body">
+              <form action="/login/register" method="POST">
+
+                  <%- include('./partials/messages.ejs') %> 
+
+                  <div class="form-row">
+                    <div class="col">
+                      <label>Fullname</label>   
+                      <input name="name" type="text" class="form-control" placeholder="Trần Văn A" value="<%= name %>" required>
+                    </div>
+                    <div class="col">
+                      <label>Email address</label>
+                      <input  name="email" type="email" class="form-control" placeholder="tranvana@tdtu.edu.vn" value="<%= email %>" required>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="form-row">
+                      <div class="col">
+                        <label>Falcuty & Office</label>
+                        <select id="falcuty" multiple name="falcuty" class="form-control">
+                        <option value="KHOA HỌC THỂ THAO">Khoa học thể thao</option>
+                        <option value="KHOA HỌC ỨNG DỤNG">Khoa học ứng dụng</option>
+                        <option value="KHOA HỌC XÃ HỘI VÀ NHÂN VĂN">Khoa học xã hội & nhân văn</option>
+                        <option value="CÔNG NGHỆ THÔNG TIN">Công nghệ thông tin</option>
+                        <option value="ĐIỆN - ĐIỆN TỬ">Điện - Điện tử</option>
+                        <option value="TOÁN - THỐNG KÊ">Toán - Thống kê</option>
+                        <option value="MỸ THUẬT CÔNG NGHIỆP">Mỹ thuật công nghiệp</option>
+                        <option value="KỸ THUẬT CÔNG TRÌNH">Kỹ thuật công trình</option>
+                        <option value="DƯỢC">Dược</option>
+                        <option value="LUẬT">Luật</option>
+                        <option value="NGOẠI NGỮ">Ngoại ngữ</option>
+                        <option value="QUẢN TRỊ KINH DOANH">Quản trị kinh doanh</option>
+                        <option value="KẾ TOÁN">Kế toán</option>
+                        <option value="TÀI CHÍNH NGÂN HÀNG">Tài chính ngân hàng</option>
+                        <option value="MÔI TRƯỜNG VÀ BẢO HỘ LAO ĐỘNG">Môi trường và bảo hộ lao động</option>
+                        <option value="LAO ĐỘNG VÀ CÔNG ĐOÀN">Lao động và công đoàn</option>
+                        <option value="PHÒNG CTHSSV">Phòng CTHSSV</option>
+                        <option value="PHÒNG TÀI CHÍNH">Phòng Tài Chính</option>
+                        <option value="PHÒNG ĐẠI HỌC">Phòng Đại Học</option>
+                      </select>
+                      </div>
+                      <div class="col">
+                        <label>Roles Apply</label>
+                        <select name="role" multiple class="form-control">
+                          <option value="admin">Administrator</option>
+                          <option value="falcuty">Facuty & Office</option>
+                          <option value="student">Student</option>
+                        </select>
+                      </div>
+                  </div> <!-- form-row.// -->
+                  <br>
+                
+                  <div class="form-group">
+                      <label>Create password</label>
+                      <input name="password" class="form-control" type="password" value="<%= password %>">
+                  </div> <!-- form-group end.// -->  
+                  <div class="form-group">
+                      <button type="submit" class="btn btn-info mr-3">Sign up</button>
+                      <button type="button" class="btn "><a href="/dashboard">Back home</a></button>
+                  </div> <!-- form-group// -->      
+              </form>
+            </article> <!-- card-body end .// -->
+
+          </div> <!-- card.// -->
+        
+        </div> <!-- col.//-->
+      </div> <!-- row.//-->
+
+    </div> 
+
+    
+  </body>
+</html>
